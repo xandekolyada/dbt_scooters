@@ -1,0 +1,29 @@
+version: 2
+
+sources:
+  - name: "scooters_raw"
+    description: "Raw data provided by scooters service"
+    loader: "custom loader from github.com"
+    tables:
+      - name: "trips"
+        description: "Scooter trips"
+
+      - name: "users"
+        description: "Users of scooter service"
+
+models:
+  - name: "trips_prep"
+    description: "Trips prepared for analysis"
+    config:
+      materialized: "view"
+  - name: "trips_stat"
+    description: "Trips statistics"
+  - name: "trips_stat_daily"
+    description: "Trips daily statistics"
+    indexes:
+      - columns: ["date"]
+        unique: true
+  - name: "trips_age_daily"
+    description: "Trips age daily statistics"
+  - name: "trips_age_daily_stat"
+    description: "Trips age statistics"
