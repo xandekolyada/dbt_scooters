@@ -27,3 +27,15 @@ models:
     description: "Trips age daily statistics"
   - name: "trips_age_daily_stat"
     description: "Trips age statistics"
+  - name: "trips_geom"
+    description: "Trips geometric view"
+    config:
+      materialized: "view"
+  - name: "parking_start_stat"
+    description: "Parking start statistics by 500m hexagons"
+  - name: "parking_finish_stat"
+    description: "Parking finish statistics by 10m hexagons"
+  - name: "trips_users"
+    description: "Trips joined with users"
+    config:
+      materialized: "incremental"
