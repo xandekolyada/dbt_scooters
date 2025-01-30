@@ -30,6 +30,7 @@ models:
     description: "Trips age daily statistics"
   - name: "trips_age_daily_stat"
     description: "Trips age statistics"
+
   - name: "trips_geom"
     description: "Trips geometric view"
     config:
@@ -38,15 +39,22 @@ models:
     description: "Parking start statistics by 500m hexagons"
   - name: "parking_finish_stat"
     description: "Parking finish statistics by 10m hexagons"
+
   - name: "trips_users"
     description: "Trips joined with users"
     config:
       materialized: "incremental"
+      post-hook:
+        - "analyze dbt.trips_users"
+        - sql: "vacuum dbt.trips_users"
+          transaction: false
 
   - name: "events_clean"
     description: "Deduplicated events"
     config:
       materialized: "incremental"
+      strategy: "merge"
+      unique_key: [ "user_id", "timestamp", "type_id" ]
 
   - name: "events_full"
     description: "Deduplicated events with types"
@@ -55,15 +63,6 @@ models:
 
   - name: "events_stat"
     description: "Events cancellation statistics"
-
-  - name: "revenue_daily"
-    description: "Daily revenue"
-    config:
-      materialized: "incremental"
-      strategy: "merge"
-      unique_key: ["date"]
-      on_schema_change: "append_new_columns"
-      full_refresh: false
 
   - name: "trips_concurrency"
     description: "Trips concurrency"
