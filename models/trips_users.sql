@@ -1,7 +1,8 @@
 select
     t.*,
     sex,
-    extract(year from age(date, birth_date)) as age
+    extract(year from age(date, birth_date)) as age,
+    {{ updated_at() }}
 from
     {{ ref("trips_prep") }} as t
 left join

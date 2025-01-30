@@ -11,6 +11,9 @@ sources:
       - name: "users"
         description: "Users of scooter service"
 
+      - name: "events"
+        description: "Raw user events with duplicates"
+
 models:
   - name: "trips_prep"
     description: "Trips prepared for analysis"
@@ -39,3 +42,39 @@ models:
     description: "Trips joined with users"
     config:
       materialized: "incremental"
+
+  - name: "events_clean"
+    description: "Deduplicated events"
+    config:
+      materialized: "incremental"
+
+  - name: "events_full"
+    description: "Deduplicated events with types"
+    config:
+      materialized: "view"
+
+  - name: "events_stat"
+    description: "Events cancellation statistics"
+
+  - name: "revenue_daily"
+    description: "Daily revenue"
+    config:
+      materialized: "incremental"
+      strategy: "merge"
+      unique_key: ["date"]
+      on_schema_change: "append_new_columns"
+      full_refresh: false
+
+  - name: "trips_concurrency"
+    description: "Trips concurrency"
+    config:
+      materialized: "incremental"
+
+  - name: "companies"
+    description: "Manufacturers statistics"
+
+  - name: "companies_trips"
+    description: "Manufacturers trips statistics"
+
+  - name: "trips_age_group"
+    description: "Trips age groups statistics"
