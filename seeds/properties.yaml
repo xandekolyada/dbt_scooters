@@ -13,3 +13,16 @@ seeds:
     description: "Age groups"
     config:
       delimiter: ","
+    columns:
+      - name: "group"
+        description: "Age group"
+        data_tests:
+          - unique_not_null
+      - name: "age_start"
+        description: "Age start"
+        data_tests:
+          - unique_not_null
+      - name: "age_end"
+        description: "Age end"
+        data_tests:
+          - unique_not_null
