@@ -16,11 +16,18 @@ Try running the following commands:
 
 
 ### Check-list
-Активируйте PostGIS в базе PostgreSQL:
+1. Активируйте PostGIS в базе PostgreSQL:
 
 ```sql
 create extension postgis schema public;
 ```
+
+2. Установите dbt и другие зависимости:
+   
+```bash
+pip install -r requirements.txt
+```
+...
 
 ### Основные команды dbt
 
