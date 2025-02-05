@@ -49,6 +49,11 @@ models:
       - row_count_equal:
           compare_model: "source('scooters_raw', 'trips')"
 
+  - name: "users_prep"
+    description: "Users prepared for analysis"
+    config:
+      materialized: "view"
+
   - name: "trips_stat"
     description: "Trips statistics"
   - name: "trips_stat_daily"
@@ -143,3 +148,66 @@ models:
 
   - name: "trips_age_group"
     description: "Trips age groups statistics"
+
+  - name: "users_class_weekly_trips"
+    description: "User classification by weekly trips"
+    columns:
+      - name: "regular"
+        description: "User rides a scooter >= 3 days a week"
+      - name: "fan"
+        description: "User rides a scooter >= 6 days a week"
+    data_tests:
+      - unique_key:
+          columns: [ "user_id" ]
+
+  - name: "users_class_weekly_destination_trips"
+    description: "User classification by weekly destination trips"
+    columns:
+      - name: "to_work"
+        description: >
+          User at least once a week ended a trip at the same place
+          in the morning >= 3 times
+    data_tests:
+      - unique_key:
+          columns: [ "user_id" ]
+
+  - name: "users_class_monthly_trips"
+    description: "User classification by monthly trips"
+    columns:
+      - name: "rare"
+        description: "User rides a scooter <= 2 times a month"
+    data_tests:
+      - unique_key:
+          columns: [ "user_id" ]
+
+  - name: "users_class"
+    description: >
+      Combining all features into a consolidated table.
+      Joining with the users table to label each user
+    data_tests:
+      - unique_key:
+          columns: [ "user_id" ]
+
+  - name: "users_class_stat"
+    description: >
+      Calculation of overall group statistics:
+        - number of users in each group
+        - total number of users for information and validation
+
+  - name: "trips_age_sex_daily"
+    description: "Daily trips statistics by user age and gender"
+    data_tests:
+      - unique_key:
+          columns: [ "date", "age", "sex" ]
+
+  - name: "trips_age_sex_weekly"
+    description: "Weekly trips statistics by user age and gender"
+    data_tests:
+      - unique_key:
+          columns: [ "week", "age", "sex" ]
+
+  - name: "trips_age_sex_monthly"
+    description: "Monthly trips statistics by user age and gender"
+    data_tests:
+      - unique_key:
+          columns: [ "month", "age", "sex" ]
