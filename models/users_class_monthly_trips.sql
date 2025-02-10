@@ -16,4 +16,4 @@ select
 from
     monthly_stat_cte
 group by
-    1
+    user_id
