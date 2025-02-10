@@ -38,10 +38,10 @@ sum_cte as (
 cumsum_cte as (
     select
         timestamp,
+        preserve_row,
         sum(increment) over (
             order by timestamp
-        ) as concurrency,
-        preserve_row
+        ) as concurrency
     from
         sum_cte
 )

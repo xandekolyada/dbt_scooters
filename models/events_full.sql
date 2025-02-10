@@ -1,6 +1,6 @@
 select *
 from
-    {{ ref("events_clean") }} ec
+    {{ ref("events_clean") }}
 left join
-    {{ ref("event_types") }} et
+    {{ ref("event_types") }}
     using (type_id)

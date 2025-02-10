@@ -3,9 +3,9 @@ with company_cte as (
         company,
         count(1) as trips
     from
-        {{ ref("trips_prep") }} t
+        {{ ref("trips_prep") }} as t
     left join
-        {{ ref("scooters") }} s
+        {{ ref("scooters") }} as s
         on t.scooter_hw_id = s.hardware_id
     group by
         company
@@ -19,5 +19,5 @@ select
 from
     company_cte
 left join
-    {{ ref("companies") }} c
+    {{ ref("companies") }} as c
     on company_cte.company = c.company

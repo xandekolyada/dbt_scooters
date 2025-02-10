@@ -3,7 +3,7 @@ with trips_age_groups_cte as (
         "group" as age_group,
         price_rub
     from
-        {{ ref("trips_users") }} t
+        {{ ref("trips_users") }}
     cross join
         {{ ref("age_groups") }}
     where
