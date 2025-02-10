@@ -6,7 +6,7 @@ from
     {{ ref("trips_prep") }}
 {% if is_incremental() %}
     where
-        date > (select max(date) - interval '3' day from {{ this }} )
+        date > (select max(date) - interval '3' day from {{ this }})
 {% endif %}
 group by
     date

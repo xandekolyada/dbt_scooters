@@ -5,8 +5,15 @@ with weekly_destination_morning_trip_days_cte as (
             st_makepoint(finish_lon, finish_lat), 0.001
         ) as destination,
         date_trunc('week', "date") as "week",
-        count(distinct
-            case when extract(hour from started_at at time zone 'Europe/Moscow') between 6 and 10 then "date" end
+        count(
+            distinct
+            case
+                when
+                    extract(
+                        hour from started_at at time zone 'Europe/Moscow'
+                    ) between 6 and 10
+                    then "date"
+            end
         ) as morning_trip_days
     from
         {{ ref("trips_prep") }}

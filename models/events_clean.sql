@@ -7,12 +7,12 @@ select distinct
 from
     {{ source("scooters_raw", "events") }}
 where
-{% if is_incremental() %}
-    {% if date %}
-        date("timestamp") = date '{{ date }}'
+    {% if is_incremental() %}
+        {% if date %}
+            date("timestamp") = date '{{ date }}'
+        {% else %}
+            "timestamp" > (select max("timestamp") from {{ this }})
+        {% endif %}
     {% else %}
-        "timestamp" > (select max("timestamp") from {{ this }})
-    {% endif %}
-{% else %}
-    timestamp <= '2023-08-01'::date
+        timestamp <= '2023-08-01'::date
 {% endif %}

@@ -1,10 +1,10 @@
 select
-	age,
-	avg(trips) as avg_trips,
-	avg(revenue_rub) as avg_revenue_rub
+    age,
+    avg(trips) as avg_trips,
+    avg(revenue_rub) as avg_revenue_rub
 from
     {{ ref("trips_age_daily") }}
 group by
-	age
+    age
 order by
     age

@@ -6,7 +6,6 @@ with days as (
     ) }}
 )
 
-select
-    cast(date_day as date) as date_day
+select cast(date_day as date) as date_day
 from
     days

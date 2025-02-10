@@ -12,6 +12,6 @@ from (
     group by
         user_id,
         "week"
-    )
+)
 group by
     user_id

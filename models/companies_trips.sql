@@ -6,7 +6,7 @@ with company_cte as (
         {{ ref("trips_prep") }} t
     left join
         {{ ref("scooters") }} s
-    on t.scooter_hw_id = s.hardware_id
+        on t.scooter_hw_id = s.hardware_id
     group by
         company
 )
@@ -20,4 +20,4 @@ from
     company_cte
 left join
     {{ ref("companies") }} c
-on company_cte.company = c.company
+    on company_cte.company = c.company
