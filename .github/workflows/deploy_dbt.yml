@@ -23,7 +23,7 @@ jobs:
         run: |
           pip install -r requirements.txt
           dbt deps
-          cp profiles.example.yml profiles.yml
+          cp profiles.test.yml profiles.yml
 
       - name: ✅ Run linter
         run: sqlfluff lint
