@@ -6,10 +6,10 @@ select
     to_work,
     not(fan or regular or rare or to_work) as no_class
 from
-    {{ ref("users_prep") }}
+    {{ ref("users_prep") }} up
 full outer join
-    {{ ref("users_class_weekly_trips") }}
-    on user_id = id
+    {{ ref("users_class_weekly_trips") }} w
+    on up.id = w.user_id
 full outer join
     {{ ref("users_class_weekly_destination_trips") }}
     using (user_id)
